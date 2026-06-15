@@ -442,9 +442,20 @@ const sel=document.querySelector("nav select");
 
 const chEls=Array.from(document.querySelectorAll('.ch-chapter'));
 const navT=document.querySelector('.nav-title');
-window.addEventListener('scroll',()=>{
-  let cur='Моими глазами';
-  for(const el of chEls){if(el.getBoundingClientRect().top<70)cur=el.textContent;}
+const navSel=document.querySelector('nav select');
+function updateNav(){
+  let cur='Моими глазами — Алла Никитина/Пазынич';
+  let curId='';
+  for(const el of chEls){
+    if(el.getBoundingClientRect().top<=60){
+      cur=el.textContent;
+      curId=el.id;
+    }
+  }
   navT.textContent=cur;
-},{passive:true});
+  if(curId && navSel.value!==curId) navSel.value=curId;
+  else if(!curId) navSel.value='';
+}
+window.addEventListener('scroll',updateNav,{passive:true});
+updateNav();
 </script></body></html>
